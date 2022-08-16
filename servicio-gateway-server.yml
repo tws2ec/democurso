@@ -1,0 +1,22 @@
+eureka:
+  client:
+    service-url:
+      default-zone: http://admin:admin@localhost:8761/eureka
+server:
+  port: 8090
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: servicio-productos-clientes
+        uri: lb://servicio-productos-clientes
+        predicates:
+          - Path=/api/productos/**
+        filters:
+          - StripPrefix=2
+      - id: servicio-televisores
+        uri: lb://servicio-televisores
+        predicates:
+          - Path=/api/televisiones/**
+        filters:
+          - StripPrefix=2
